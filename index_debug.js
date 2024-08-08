@@ -9,7 +9,7 @@ document.getElementById('threejs-canvas').appendChild(renderer.domElement);
 
 const loader = new GLTFLoader();
 loader.load(
-    'dd1_dots.glb',
+    'https://drive.google.com/uc?export=download&id=1cwy2oRNQ8uFzw47PtoycdI12ITYQUZ3z', // Updated URL
     function (gltf) {
         scene.add(gltf.scene);
         animate();
