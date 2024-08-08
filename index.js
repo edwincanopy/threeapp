@@ -413,14 +413,7 @@ function getRandomBoolean() {
 // 2. Load the GLB Model
 const loader = new GLTFLoader();
 // Assuming loader.load() has already been called
-let modelGlb;
-if (ddbModel == 'new') {
-    modelGlb = 'dd1_new.glb'
-} else if (ddbModel == 'old') {
-    modelGlb = 'dd1_old.glb'
-} else if (ddbModel == 'dots') {
-    modelGlb = 'dd1_dots.glb'
-}
+const modelGlb = 'dd1_dots.glb';
 
 loader.load(modelGlb, function (gltf) {
 
