@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Three.js Viewer</title>
+    <link rel="stylesheet" href="./style.css">
+    <script type="importmap">
+        {
+          "imports": {
+            "three": "https://unpkg.com/three@0.161.0/build/three.module.js"
+          }
+        }
+    </script>
+</head>
+<body>
+    <div class="button-container">
+        <button id="popupButton"><b>SHOW INSTRUCTIONS</b></button>
+        <button id="saveCoordinates">Save Data</button>
+        <button id="playAudioButton" style="display: none;">Play Audio</button>
+        <audio id="audio" src="audio/audio_0.wav"></audio>
+        
+        <select id="currentImageDropdown"></select>
+        <button id="prevImageButton">Previous Image ↞</button>
+        <button id="nextImageButton">Next Image ↠</button>
+        <button id="hideImageButton">Hide/Show Image</button>
+
+        <div id="popup" class="popup">
+            <div class="popup-content">
+                <span id="closePopup" class="close">&times;</span>
+                <h1>Instructions:<br></h1>
+                <p>Use the 'Previous Image' and 'Next Image' buttons to cycle through the images. You can also use the dropdown
+                    to quickly select any image just by scrolling down.
+                </p>
+                <p>Use the sliders on the left to move the mouth so that the green dots align as well as possible with
+                    the blue dots on the mask.
+                </p>
+                <p>Finally, click the 'Save data' button for each new image of dots, this will save the coordinates
+                    as a txt file as well as a screenshot in your downloads folder.
+                </p>
+                <p>Send all the screenshots and txt files as they are once you have finished.</p>
+                <p>The last image is 'overlay_graphs_99/24_GRAPH.png' (displayed in the dropdown menu). After this one you are done.</p>
+                <h2><br>Things to consider:</h2>
+                <p>We are trying to match audio to facial expressions. For each new set of images, there will be a 'play audio'
+                    button that you can click to play the audio. You should still aim to match the coordinates to the blue
+                    dots on the image, but you can use the audio as a reference that the expressions should seem to be saying
+                    what is in the recording.
+                </p>
+                <p>Make sure each new mouth expression follows naturally from the previous one (the final animation should seem to
+                    be smooth).
+                </p>
+                <p>Use the 'Reset coordinates' button to set all the coordinates to 0.</p>
+                <p>You can hide and show the image using the 'Hide/show image' button.</p>
+            </div>
+        </div>
+
+        <div class="slider-container">
+            <label for="slider1">263 - mouth open:</label>
+            <input type="range" id="slider1" min="-1.5" max="4.5" step="0.1">
+            <span id="slider1Value"></span>
+            <br>
+            <label for="slider2">279 - mouth thin:</label>
+            <input type="range" id="slider2" min="-1.0" max="3.5" step="0.1">
+            <span id="slider2Value"></span>
+            <br>
+            <label for="slider3">285 - mouth open sideways:</label>
+            <input type="range" id="slider3" min="-1.0" max="2.5" step="0.1">
+            <span id="slider3Value"></span>
+            <br>
+            <label for="slider4">280 - lips pursed:</label>
+            <input type="range" id="slider4" min="-1.0" max="2.5" step="0.1">
+            <span id="slider4Value"></span>
+            <br>
+            <label for="slider5">291 - side grin:</label>
+            <input type="range" id="slider5" min="-1.0" max="2.5" step="0.1">
+            <span id="slider5Value"></span>
+            <br>
+            <button class="reset-button" id="resetButton">Reset Coordinates</button>
+        </div>
+    </div>
+
+    <div id="container">
+        <div id="threejs-canvas"></div>
+        <img id="overlay-image" src="graphs/overlay_graphs_0/1_GRAPH.png" alt="Overlay Image">
+    </div>
+
+    <script src="https://threejs.org/examples/js/postprocessing/EffectComposer.js"></script>
+    <script src="https://threejs.org/examples/js/postprocessing/RenderPass.js"></script>
+    <script src="https://threejs.org/examples/js/postprocessing/ShaderPass.js"></script>
+    <script src="https://threejs.org/examples/js/shaders/CopyShader.js"></script>
+    <script src="https://threejs.org/examples/js/shaders/FilmShader.js"></script>
+    <script src="./index.js" type="module"></script>
+</body>
+</html>
