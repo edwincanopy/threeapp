@@ -261,7 +261,7 @@ function getRandomNumber(min, max) {
 }
 
 // function to take a screenshot
-function takeScreenshot() {
+function takeScreenshotOld() {
     renderer.render(scene, camera); // might be better to call animate
     const imgData = renderer.domElement.toDataURL("image/png");
     const link = document.createElement('a');
@@ -273,6 +273,47 @@ function takeScreenshot() {
 
     document.dispatchEvent(new CustomEvent('screenshotSaved')); // Promise resolution
 }
+
+function takeScreenshot() {
+    // Step 1: Render the Three.js scene
+    renderer.render(scene, camera);
+    
+    // Get the Three.js canvas as an image
+    const threeJsCanvas = renderer.domElement;
+    const threeJsImage = new Image();
+    threeJsImage.src = threeJsCanvas.toDataURL("image/png");
+
+    // Step 2: Use html2canvas to capture the rest of the webpage
+    html2canvas(document.body).then(function(htmlCanvas) {
+        
+        // Step 3: Create a new canvas to composite the two images
+        const compositeCanvas = document.createElement('canvas');
+        const context = compositeCanvas.getContext('2d');
+        
+        // Set the composite canvas size to the size of the htmlCanvas
+        compositeCanvas.width = htmlCanvas.width;
+        compositeCanvas.height = htmlCanvas.height;
+
+        // Draw the html2canvas output (the rest of the webpage) onto the composite canvas
+        context.drawImage(htmlCanvas, 0, 0);
+
+        // Draw the Three.js scene on top
+        //context.drawImage(threeJsImage, 0, 0);
+
+        // Step 4: Convert the composite canvas to an image and trigger the download
+        const imgData = compositeCanvas.toDataURL("image/png");
+        const link = document.createElement('a');
+        link.href = imgData;
+        link.download = `${numbers[0]}_folder/${numbers[1]}_image.png`;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+
+        // Dispatch a custom event to signal that the screenshot has been saved
+        document.dispatchEvent(new CustomEvent('screenshotSaved'));
+    });
+}
+
 
 function extractNumbers(input) {
     // Regular expression to match the numbers after the semicolon
