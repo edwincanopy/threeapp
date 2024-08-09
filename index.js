@@ -413,7 +413,7 @@ function getRandomBoolean() {
 // 2. Load the GLB Model
 const loader = new GLTFLoader();
 // Assuming loader.load() has already been called
-const modelGlb = 'dd1_dots.glb';
+const modelGlb = 'https://storage.googleapis.com/finetune-glb/dd1_dots.glb';
 
 loader.load(modelGlb, function (gltf) {
 
