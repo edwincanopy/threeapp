@@ -30,6 +30,11 @@
             <div class="popup-content">
                 <span id="closePopup" class="close">&times;</span>
                 <h1>Instructions:<br></h1>
+                <p><b>Before you start: </b>make sure that the two pairs of dots (shown circled in the image below)
+                match roughly between the green and blue dots. Use the controls above 'Update overlay' on the right to move the
+                overlay image and change its size until they match. Click the 'Update overlay' button for the changes to take effect. 
+                (Make a note of these three numbers in case you reload the page.)</p>
+                <img src="example.png" width="300">
                 <p>Use the 'Previous Image' and 'Next Image' buttons to cycle through the images. You can also use the dropdown
                     to quickly select any image just by scrolling down.
                 </p>
@@ -40,7 +45,6 @@
                     as a txt file as well as a screenshot in your downloads folder.
                 </p>
                 <p>Send all the screenshots and txt files as they are once you have finished.</p>
-                <p>The last image is 'overlay_graphs_99/24_GRAPH.png' (displayed in the dropdown menu). After this one you are done.</p>
                 <h2><br>Things to consider:</h2>
                 <p>We are trying to match audio to facial expressions. For each new set of images, there will be a 'play audio'
                     button that you can click to play the audio. You should still aim to match the coordinates to the blue
@@ -78,6 +82,20 @@
             <br>
             <button class="reset-button" id="resetButton">Reset Coordinates</button>
         </div>
+        
+        <!-- New Input Fields for Overlay Image -->
+        <div class="overlay-controls">
+            <label for="overlayHeight">Size:</label>
+            <input type="number" id="overlayHeight" min="0" value="600"><br>
+
+            <label for="overlayTop">Top:</label>
+            <input type="number" id="overlayTop" value="-60"><br>
+
+            <label for="overlayLeft">Left:</label>
+            <input type="number" id="overlayLeft" value="410"><br>
+
+            <button id="updateOverlayButton">Update Overlay</button>
+        </div>
     </div>
 
     <div id="container">
@@ -92,5 +110,19 @@
     <script src="https://threejs.org/examples/js/shaders/FilmShader.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.0.0/dist/html2canvas.min.js"></script>
     <script src="./index.js" type="module"></script>
+
+    <script>
+        // JavaScript to update overlay image based on input values
+        document.getElementById('updateOverlayButton').addEventListener('click', function() {
+            const overlayImage = document.getElementById('overlay-image');
+            const height = document.getElementById('overlayHeight').value;
+            const top = document.getElementById('overlayTop').value;
+            const left = document.getElementById('overlayLeft').value;
+
+            overlayImage.style.height = height + 'px';
+            overlayImage.style.top = top + 'px';
+            overlayImage.style.left = left + 'px';
+        });
+    </script>
 </body>
 </html>
